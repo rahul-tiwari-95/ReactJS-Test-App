@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
+// import Radium  , {StyleRoot} from 'radium';
 
 class App extends Component {
 
@@ -12,7 +13,8 @@ class App extends Component {
 
     persons : [
       {name: "Rahul"  , age: 99},
-      {name: "Rohit" , age:22}
+      {name: "Rohit" , age:22},
+      {name: "Vishal" , age:30}
     ],
     toggleData : true
   }  // We made a Object inside State and then an array of Objects inside persons array
@@ -26,7 +28,8 @@ switchEventHandler = (nameChange)=>{
 
                   persons : [
                     {name: nameChange  , age: 9999999},
-                    {name: "Rohit" , age:22}
+                    {name: "Rohit" , age:22},
+                    {name: "Vishal" , age:30}
                   ]
 
 
@@ -39,7 +42,8 @@ nameChangeHandler = (event) =>{ // event is a JavaScript pre-defined event. This
 
                   persons : [
                     {name: event.target.value  , age: 9999999},
-                    {name: "Rohit" , age:22}
+                    {name: "Rohit" , age:22},
+                    {name: "Vishal" , age:30}
                   ]
 
 
@@ -58,29 +62,68 @@ toggleDataHandler = ()=>{
 
 
 
+
   render() {
+
+    // let style = {
+    //     font: 'white',
+    //     border: '2px solid red',
+    //     color: 'white',
+    //     padding: '8px',
+    //     backgroundColor: 'green',
+    //     ':hover' : {
+    //       backgroundColor: 'blue'
+    //     }
+    //
+    // }
+
+
+    let tempPerson = null
+
+    if(this.state.toggleData){
+
+        tempPerson =[
+
+      <div>
+
+          {
+            this.state.persons.map( singlePerson => {
+
+              // body...
+              return (<Person name={singlePerson.name} age = {singlePerson.age}/>)
+            })
+          }
+
+      </div>
+
+
+     ]
+     // style.backgroundColor = 'red'
+
+    }
+
+
     return (
+
+
+
+
       <div className="App">
         <header className="App-header">
 
           <h1>Hello Rahul</h1>
 
         </header>
-          <button onClick={this.switchEventHandler.bind(this,"CHUTTAD") , this.toggleDataHandler}>Switch Names</button>
+          <button  onClick={this.switchEventHandler.bind(this,"CHUTTAD") , this.toggleDataHandler}>Toogle Names</button>
+        <hr/>
         <code>Magic Name</code><input onChange={this.nameChangeHandler} />
-      {  this.state.toggleData ?
-     <div >
 
-         <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+      {tempPerson}
 
-         <Person randomDate={this.state.randomDate} customClickEvent = {this.switchEventHandler.bind(this, "Vishal")} />
-
-      </div>
-      : "Sorry"
-    }
 
 
       </div>
+
 
 
     );
